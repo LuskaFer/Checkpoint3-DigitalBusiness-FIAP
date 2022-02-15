@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="_template.xhtml">
+<ui:define name="title">Setup</ui:define>
+	<ui:define name="content">
+	<p:messages id="message" ><p:autoUpdate/></p:messages>
+		<h:form>
+		<p:card class="card-form">
+			<f:facet name="title">
+       <center><b>Novo Setup</b></center>
+    </f:facet>
+			<f:facet name="subtitle">
+        <p><i>Preencha as informações abaixo:</i></p>
+    </f:facet>
+			<div class="p-field p-grid">
+				<label for="Nome" class="p-col-fixed" style="width: 100px">Nome:</label>
+				<div class="p-col">
+					<p:inputText id="Nome" type="text" value="#{setupBean.setup.nome}" required="true">
+					<f:ajax event="blur" render="message"/>
+					</p:inputText>
+				</div>
+			</div>
+			<div class="p-field p-grid">
+				<label for="Descrição" class="p-col-fixed" style="width: 100px">Descrição do Produto:</label>
+				<div class="p-col">
+					<p:inputTextarea id="Descrição" type="text" value="#{setupBean.setup.descricao}">
+						<f:validateLength minimum="5"/>
+					<f:ajax event="blur" render="message"/>
+					</p:inputTextarea>
+				</div>
+			</div>
+			<div class="p-field p-grid">
+				<label for="Preço" class="p-col-fixed" style="width: 100px">Preço:</label>
+				<div class="p-col">
+					<p:inputText id="Preço" type="text" value="#{setupBean.setup.preco}">
+					<f:validateLength minimum="2"/>
+					<f:ajax event="blur" render="message"/>
+					</p:inputText>
+				</div>
+			</div>
+			<f:facet name="footer">
+				<p:commandButton icon="pi pi-send" value="Enviar" action="#{setupBean.save}"/>
+				<p:commandButton icon="pi pi-times" value="Cancelar"
+					styleClass="ui-button-secondary" style="margin-left: .5em" />
+			</f:facet>
+		</p:card>
+		</h:form>
+		
+		
+		<h:form>
+		<div class="card">
+		<p:dataTable value="#{setupBean.setups}" var="setup">
+			<p:column headerText="Nome">
+				<h:outputText value="#{setup.nome}"/>
+			</p:column>
+			<p:column headerText="Descrição">
+				<h:outputText value="#{setup.descricao}"/>
+			</p:column>
+			<p:column headerText="Preço">
+				<h:outputText value="#{setup.preco}"/>
+			</p:column>
+		</p:dataTable>
+		</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
